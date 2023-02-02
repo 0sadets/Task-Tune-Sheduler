@@ -1,0 +1,1 @@
+# system-for-monitoring-of-the-introductory-campaign
