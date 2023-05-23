@@ -1,6 +1,7 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Controllers",
     "\\DataLayer",
     "\\Properties",
     "\\ViewModels"

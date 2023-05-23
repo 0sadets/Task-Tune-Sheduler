@@ -7,7 +7,21 @@
 // }
 
 //calendar
+let eventsArr = [];
+//getEvents();
 
+
+window.onload = () => {
+  fetch("https://localhost:44322/api/User/get-notes")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach(element => {
+        eventsArr.push({
+        });
+      });
+    }); 
+    console.log(eventsArr);
+};
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
@@ -65,9 +79,7 @@ const months = [
 //   },
 // ];
 
-const eventsArr = [];
-getEvents();
-console.log(eventsArr);
+
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
@@ -92,9 +104,9 @@ function initCalendar() {
     let event = false;
     eventsArr.forEach((eventObj) => {
       if (
-        eventObj.day === i &&
-        eventObj.month === month + 1 &&
-        eventObj.year === year
+        eventObj.dataCreation.getDate() === i &&
+        eventObj.dataCreation.getMonth() === month + 1 &&
+        eventObj.dataCreation.getFullYear() === year
       ) {
         event = true;
       }
@@ -249,12 +261,13 @@ function getActiveDay(date) {
 
 //function update events when a day is active
 function updateEvents(date) {
-  let events = "";
+  let events = eventsArr;
   eventsArr.forEach((event) => {
+    console.log(typeof(event.dateCreation) )
     if (
-      date === event.day &&
-      month + 1 === event.month &&
-      year === event.year
+      date === event.dataCreation.getDay() &&
+      month + 1 === event.dataCreation.getMonth() &&
+      year === event.dataCreation.getFullYear()
     ) {
       event.events.forEach((event) => {
         events += `<div class="event">
@@ -263,7 +276,7 @@ function updateEvents(date) {
               <h3 class="event-title">${event.title}</h3>
             </div>
             <div class="event-time">
-              <span class="event-time">${event.time}</span>
+              <span class="event-time">${event.dataCreation}</span>
             </div>
         </div>`;
       });
@@ -297,8 +310,6 @@ document.addEventListener("click", (e) => {
 addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
-
-
 
 //allow only time in eventtime from and to
 addEventFrom.addEventListener("input", (e) => {
@@ -353,9 +364,9 @@ addEventSubmit.addEventListener("click", () => {
   let eventExist = false;
   eventsArr.forEach((event) => {
     if (
-      event.day === activeDay &&
-      event.month === month + 1 &&
-      event.year === year
+      event.dataCreation.getDate() === activeDay &&
+      event.dataCreation.getMonth() === month + 1 &&
+      event.dataCreation.getFullYear() === year
     ) {
       event.events.forEach((event) => {
         if (event.title === eventTitle) {
@@ -378,9 +389,9 @@ addEventSubmit.addEventListener("click", () => {
   if (eventsArr.length > 0) {
     eventsArr.forEach((item) => {
       if (
-        item.day === activeDay &&
-        item.month === month + 1 &&
-        item.year === year
+        item.dataCreation.getDate() === activeDay &&
+        item.dataCreation.getMonth() === month + 1 &&
+        item.dataCreation.getFullYear() === year
       ) {
         item.events.push(newEvent);
         eventAdded = true;
@@ -417,9 +428,9 @@ eventsContainer.addEventListener("click", (e) => {
       const eventTitle = e.target.children[0].children[1].innerHTML;
       eventsArr.forEach((event) => {
         if (
-          event.day === activeDay &&
-          event.month === month + 1 &&
-          event.year === year
+          item.dataCreation.getDate() === activeDay &&
+        item.dataCreation.getMonth() === month + 1 &&
+        item.dataCreation.getFullYear() === year
         ) {
           event.events.forEach((item, index) => {
             if (item.title === eventTitle) {
