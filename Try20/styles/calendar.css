@@ -547,4 +547,7 @@ footer{
 .today-btn{
   color: #116466;
 }
+.currentDate, .currentUser{
+  display: none;
+}
 

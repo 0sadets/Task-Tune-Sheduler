@@ -1,27 +1,47 @@
-// function openNav() {
-//   document.getElementById("mySidenav").style.width = "250px";
+function outputtingDate(date) {
+  return `${date.getFullYear()}–${date.getMonth() + 1}–${date.getDate()}`
+}
+
+// function CORSSolve(){
+//   const xhttp = new XMLHttpRequest()
+//   xhttp.onreadystatechange = function(){
+//     if (this.readyState == 4 && this.status == 200)
+//     {
+//       document.getElementById('data').innerText = xhttp.responseText
+//     }
+//   };
+//   xhttp,open("GET", "https://localhost:44322/api/User/add-note", true)
+//   xhttp.send()
 // }
 
-// function closeNav() {
-//   document.getElementById("mySidenav").style.width = "0";
-// }
 
-//calendar
 let eventsArr = [];
-//getEvents();
-
-
 window.onload = () => {
   fetch("https://localhost:44322/api/User/get-notes")
     .then((response) => response.json())
     .then((data) => {
-      data.forEach(element => {
+      data.forEach(item => {
         eventsArr.push({
+          id: item.id,
+          title: item.title,
+          dateCreation: new Date(`${item.dateCreation.substring(0, item.dateCreation.indexOf('T'))}`),
+          endDate: new Date(`${item.endDate.substring(0, item.endDate.indexOf('T'))}`),
+          description: item.description,
+          status: item.status,
+          user: item.user
         });
+        document.querySelector(".currentUser").value = data[0].user;
+        console.log(data[0].user);
       });
-    }); 
-    console.log(eventsArr);
+
+    });
+  initCalendar();
+  // updateEvents()
+  customConvertTime("14:00");
+  //CORSSolve()
+  
 };
+
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
@@ -37,14 +57,17 @@ const calendar = document.querySelector(".calendar"),
   addEventWrapper = document.querySelector(".add-event-wrapper "),
   addEventCloseBtn = document.querySelector(".close "),
   addEventTitle = document.querySelector(".event-name "),
+  addEventDesc = document.querySelector(".event-desc"),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
-  addEventSubmit = document.querySelector(".add-event-btn ");
+  addEventSubmit = document.querySelector(".add-event-btn ")
+ ;
 
 let today = new Date();
 let activeDay;
 let month = today.getMonth();
 let year = today.getFullYear();
+
 
 const months = [
   "January",
@@ -61,24 +84,6 @@ const months = [
   "December",
 ];
 
-// const eventsArr = [
-//   {
-//     day: 13,
-//     month: 11,
-//     year: 2022,
-//     events: [
-//       {
-//         title: "Event 1 lorem ipsun dolar sit genfa tersd dsad ",
-//         time: "10:00 AM",
-//       },
-//       {
-//         title: "Event 2",
-//         time: "11:00 AM",
-//       },
-//     ],
-//   },
-// ];
-
 
 
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
@@ -90,6 +95,7 @@ function initCalendar() {
   const lastDate = lastDay.getDate();
   const day = firstDay.getDay();
   const nextDays = 7 - lastDay.getDay() - 1;
+  
 
   date.innerHTML = months[month] + " " + year;
 
@@ -102,13 +108,14 @@ function initCalendar() {
   for (let i = 1; i <= lastDate; i++) {
     //check if event is present on that day
     let event = false;
-    eventsArr.forEach((eventObj) => {
+    eventsArr.forEach((item) => {
       if (
-        eventObj.dataCreation.getDate() === i &&
-        eventObj.dataCreation.getMonth() === month + 1 &&
-        eventObj.dataCreation.getFullYear() === year
+        item.dateCreation.getDate() === i &&
+        item.dateCreation.getMonth() === month &&
+        item.dateCreation.getFullYear() === year
       ) {
         event = true;
+        console.log(event)
       }
     });
     if (
@@ -116,8 +123,9 @@ function initCalendar() {
       year === new Date().getFullYear() &&
       month === new Date().getMonth()
     ) {
-      activeDay = i;
       getActiveDay(i);
+      updateEvents(i);
+      activeDay = i;
       updateEvents(i);
       if (event) {
         days += `<div class="day today active event">${i}</div>`;
@@ -238,7 +246,6 @@ dateInput.addEventListener("input", (e) => {
 gotoBtn.addEventListener("click", gotoDate);
 
 function gotoDate() {
-  console.log("here");
   const dateArr = dateInput.value.split("/");
   if (dateArr.length === 2) {
     if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
@@ -257,31 +264,35 @@ function getActiveDay(date) {
   const dayName = day.toString().split(" ")[0];
   eventDay.innerHTML = dayName;
   eventDate.innerHTML = date + " " + months[month] + " " + year;
+  let currentDate = document.querySelector(".currentDate");
+currentDate.value = `${year}-${month+1}-${date}`;
+console.log(currentDate.value);
 }
 
 //function update events when a day is active
 function updateEvents(date) {
-  let events = eventsArr;
+  let events = "";
   eventsArr.forEach((event) => {
-    console.log(typeof(event.dateCreation) )
+    console.log(event.dateCreation.getMonth());
     if (
-      date === event.dataCreation.getDay() &&
-      month + 1 === event.dataCreation.getMonth() &&
-      year === event.dataCreation.getFullYear()
+      date === event.dateCreation.getDate() &&
+      month === event.dateCreation.getMonth() + 1 &&
+      year === event.dateCreation.getFullYear()
     ) {
-      event.events.forEach((event) => {
-        events += `<div class="event">
+      console.log(event);
+      events += `<div class="event">
             <div class="title">
               <i class="fas fa-circle"></i>
               <h3 class="event-title">${event.title}</h3>
             </div>
             <div class="event-time">
-              <span class="event-time">${event.dataCreation}</span>
+              <span class="event-time">${outputtingDate(event.dateCreation)}</span>
             </div>
         </div>`;
-      });
+
     }
   });
+
   if (events === "") {
     events = `<div class="no-event">
             <h3>No Events</h3>
@@ -312,15 +323,15 @@ addEventTitle.addEventListener("input", (e) => {
 });
 
 //allow only time in eventtime from and to
-addEventFrom.addEventListener("input", (e) => {
-  addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
-  if (addEventFrom.value.length === 2) {
-    addEventFrom.value += ":";
-  }
-  if (addEventFrom.value.length > 5) {
-    addEventFrom.value = addEventFrom.value.slice(0, 5);
-  }
-});
+// addEventFrom.addEventListener("input", (e) => {
+//   addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
+//   if (addEventFrom.value.length === 2) {
+//     addEventFrom.value += ":";
+//   }
+//   if (addEventFrom.value.length > 5) {
+//     addEventFrom.value = addEventFrom.value.slice(0, 5);
+//   }
+// });
 
 addEventTo.addEventListener("input", (e) => {
   addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
@@ -337,7 +348,8 @@ addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
   const eventTimeFrom = addEventFrom.value;
   const eventTimeTo = addEventTo.value;
-  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "") {
+  const eventDesc = addEventDesc.value;
+  if (eventTitle === "" || eventTimeFrom === "" || eventTimeTo === "" || eventDesc === "") {
     alert("Please fill all the fields");
     return;
   }
@@ -357,41 +369,41 @@ addEventSubmit.addEventListener("click", () => {
     return;
   }
 
-  const timeFrom = convertTime(eventTimeFrom);
-  const timeTo = convertTime(eventTimeTo);
+  const timeFrom = customConvertTime(eventTimeFrom);
+  const timeTo = customConvertTime(eventTimeTo);
 
-  //check if event is already added
-  let eventExist = false;
-  eventsArr.forEach((event) => {
-    if (
-      event.dataCreation.getDate() === activeDay &&
-      event.dataCreation.getMonth() === month + 1 &&
-      event.dataCreation.getFullYear() === year
-    ) {
-      event.events.forEach((event) => {
-        if (event.title === eventTitle) {
-          eventExist = true;
-        }
-      });
-    }
-  });
-  if (eventExist) {
-    alert("Event already added");
-    return;
-  }
+
   const newEvent = {
     title: eventTitle,
-    time: timeFrom + " - " + timeTo,
+    dateCreation: timeFrom,
+    endDate: timeTo,
+    description: eventDesc,
+    status: false,
+    user: "sashaosadets@gmail.com"
+    
   };
   console.log(newEvent);
-  console.log(activeDay);
+
+  // fetch("https://localhost:44322/api/User/add-note", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  //   body: JSON.stringify(newEvent)
+  // })
+  //   .then((response) => response.json())
+  //   .then((response) => {
+  //     console.log(response);
+  //   });
+
   let eventAdded = false;
   if (eventsArr.length > 0) {
     eventsArr.forEach((item) => {
       if (
-        item.dataCreation.getDate() === activeDay &&
-        item.dataCreation.getMonth() === month + 1 &&
-        item.dataCreation.getFullYear() === year
+        item.dateCreation.getDate() === activeDay &&
+        item.dateCreation.getMonth() === month + 1 &&
+        item.dateCreation.getFullYear() === year
       ) {
         item.events.push(newEvent);
         eventAdded = true;
@@ -400,12 +412,7 @@ addEventSubmit.addEventListener("click", () => {
   }
 
   if (!eventAdded) {
-    eventsArr.push({
-      day: activeDay,
-      month: month + 1,
-      year: year,
-      events: [newEvent],
-    });
+    eventsArr.push(newEvent);
   }
 
   console.log(eventsArr);
@@ -421,16 +428,30 @@ addEventSubmit.addEventListener("click", () => {
   }
 });
 
+function customConvertTime(time)
+{
+// var target = new Date(`${year}-${month}-${activeDay}T${time}`);
+var date = new Date();
+date.setHours(time.substr(0,time.indexOf(":")));
+date.setMinutes(time.substr(time.indexOf(":")+1));
+date.setSeconds(0);
+date.setDate(activeDay);
+date.setFullYear(year);
+date.setMonth(month);
+console.log(date);
+return date;
+}
 //function to delete event when clicked on event
+
 eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
     if (confirm("Are you sure you want to delete this event?")) {
       const eventTitle = e.target.children[0].children[1].innerHTML;
       eventsArr.forEach((event) => {
         if (
-          item.dataCreation.getDate() === activeDay &&
-        item.dataCreation.getMonth() === month + 1 &&
-        item.dataCreation.getFullYear() === year
+          item.dateCreation.getDate() === activeDay &&
+          item.dateCreation.getMonth() === month + 1 &&
+          item.dateCreation.getFullYear() === year
         ) {
           event.events.forEach((item, index) => {
             if (item.title === eventTitle) {

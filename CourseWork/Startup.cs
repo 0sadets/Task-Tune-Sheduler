@@ -29,9 +29,12 @@ namespace CourseWork
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient();
+            services.AddCors();
             services.AddDbContext<DataContext>(opt =>
                  opt.UseSqlServer(Configuration.GetConnectionString("ConnectionString"))
              );
+            
 
             services.AddControllers();
             services.AddIdentity<User, IdentityRole>()
@@ -49,6 +52,8 @@ namespace CourseWork
                 opt.Password.RequireNonAlphanumeric = false;
             });
             services.AddControllersWithViews();
+            
+           
             services.AddCors();
         }
 
@@ -62,14 +67,19 @@ namespace CourseWork
             db.Database.EnsureCreated();
             app.UseHttpsRedirection();
 
+
+
             app.UseRouting();
 
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+               
             });
+            app.UseDefaultFiles("/E:/унік/2курс/2 семестр/курсач/Try20/pages/calendar.html");
             //Seeder.SeedDb(app.ApplicationServices, Configuration);
         }
 

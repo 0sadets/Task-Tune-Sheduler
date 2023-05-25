@@ -3,6 +3,8 @@ using CourseWork.DTOModel;
 using CourseWork.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,16 +22,35 @@ namespace CourseWork.Controllers
         [HttpGet("get-notes")]
         public List<NoteDTO> GetNotes()
         {
-            return context.Notes.Select(n => new NoteDTO() { 
-            Id = n.Id,
-            Description = n.Description,
-            Title = n.Title,
-            DateCreation = n.DateCreation,
-            EndDate = n.EndDate,
-            Status = n.Status,
-            User = context.Users.FirstOrDefault(u => u.Id == n.UserId).Email
+            return context.Notes.Select(n => new NoteDTO()
+            {
+                Id = n.Id,
+                Description = n.Description,
+                Title = n.Title,
+                DateCreation = n.DateCreation,
+                EndDate = n.EndDate,
+                Status = n.Status,
+                User = context.Users.FirstOrDefault(u => u.Id == n.UserId).Email
             }).ToList();
         }
+        [HttpPost("add-note")]
+        public void AddNotes([FromForm] string EvName, [FromForm] string EvDesc, [FromForm] string currentDate, [FromForm] string currentUser)
+        {
+            var newNote = new Note()
+            {
+                Title = EvName,
+                DateCreation = DateTime.Parse(currentDate),
+                EndDate = DateTime.Parse(currentDate),
+                Description = EvDesc,
+                UserId = context.Users.FirstOrDefault(u => u.Email == currentUser).Id
+            };
+            context.Notes.Add(newNote);
+            context.SaveChanges();
+        //    return null;
+        }
         
+
+
+
     }
 }
