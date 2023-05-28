@@ -34,7 +34,7 @@ namespace CourseWork.Controllers
             }).ToList();
         }
         [HttpPost("add-note")]
-        public void AddNotes([FromForm] string EvName, [FromForm] string EvDesc, [FromForm] string currentDate, [FromForm] string currentUser)
+        public ActionResult AddNotes([FromForm] string EvName, [FromForm] string EvDesc, [FromForm] string currentDate, [FromForm] string currentUser)
         {
             var newNote = new Note()
             {
@@ -46,7 +46,9 @@ namespace CourseWork.Controllers
             };
             context.Notes.Add(newNote);
             context.SaveChanges();
-        //    return null;
+            return Redirect("http://127.0.0.1:5500/pages/calendar.html");
+            
+            //    return null;
         }
         
 

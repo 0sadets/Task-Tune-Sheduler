@@ -73,7 +73,7 @@ footer{
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #116466;
+  background: #66afb1;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb {
@@ -387,7 +387,7 @@ footer{
 .events .event .event-time {
   font-size: 0.8rem;
   font-weight: 400;
-  color: #878895;
+  color: #116466;
   margin-left: 15px;
   pointer-events: none;
 }
@@ -396,7 +396,7 @@ footer{
 }
 /* add tick in event after */
 .events .event::after {
-  content: "✓";
+  
   position: absolute;
   top: 50%;
   right: 0;
@@ -546,7 +546,14 @@ footer{
 
 .today-btn{
   color: #116466;
+  border: #116466 solid 1px;
 }
+.today-btn:hover{
+color: #D1E8E2;
+background-color: #116466;
+}
+
+
 .currentDate, .currentUser{
   display: none;
 }
