@@ -174,11 +174,16 @@ html, body{
   padding-bottom: 16px;
   align-items: flex-start;
   border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+
 }
 .task-box .task:last-child{
   margin-bottom: 0;
   border-bottom: 0;
   padding-bottom: 0;
+  display: flex;
+  justify-content: space-between
 }
 .task-box .task label{
   display: flex;
@@ -232,7 +237,9 @@ html, body{
   margin-bottom: 2px;
   padding: 17px 15px;
   cursor: pointer;
+  display: flex;
   justify-content: flex-start;
+  align-items: center;
 }
 .task-menu li:last-child{
   margin-bottom: 0;

@@ -351,8 +351,8 @@ footer{
   width: 95%;
   min-height: 70px;
   display: flex;
-  justify-content: center;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   gap: 5px;
   padding: 0 20px;
   padding-left: 50px;
@@ -558,3 +558,10 @@ background-color: #116466;
   display: none;
 }
 
+.done-text{
+  font-size: 1.7rem;
+}
+
+.done-text:hover{
+  color: #116466;
+}

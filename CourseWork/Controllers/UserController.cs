@@ -50,7 +50,15 @@ namespace CourseWork.Controllers
             
             //    return null;
         }
-        
+        [HttpPost("set-status")]
+        public void SetStatus([FromQuery] string id)
+        {
+            var note = context.Notes.FirstOrDefault(n => n.Id == Int32.Parse(id));
+            note.Status = true;
+            context.SaveChanges();
+        }
+
+
 
 
 

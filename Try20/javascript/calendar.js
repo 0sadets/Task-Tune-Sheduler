@@ -60,6 +60,10 @@ const calendar = document.querySelector(".calendar"),
   addEventSubmit = document.querySelector(".add-event-btn ")
  ;
 
+function setStatus(){
+  console.log("event");
+};
+
 let today = new Date();
 let activeDay;
 let month = today.getMonth();
@@ -273,38 +277,60 @@ console.log(currentDate.value);
 //function update events when a day is active
 function updateEvents(date) {
   let events = "";
+  eventsContainer.innerHTML = '';
   eventsArr.forEach((event) => {
     console.log(event.dateCreation.getMonth());
     if (
       date === event.dateCreation.getDate() &&
-      month === event.dateCreation.getMonth()  &&
+      month === event.dateCreation.getMonth() &&
       year === event.dateCreation.getFullYear()
     ) {
-      console.log(event);
-      events += `<div class="event row d-flex justify-content-between align-items-center ">
-            <div class="col align-items-center">
-            <div class="title">
-              <i class="fas fa-circle"></i>
-              <h3 class="event-title">${event.title}</h3> 
-
-            </div>
-            <div class="event-time">
-              <span class="event-time">${outputtingDate(event.dateCreation)}</span>
-            </div>
-            </div>
-            <div class="col "><p class="m-0 align-items-center"> ✓ </p></div>
-        </div>`;
-
+      let row = document.createElement('div');
+      row.className = 'event d-flex';
+      let divBody = document.createElement('div');
+      divBody.className = 'col-10 align-items-center';
+      let titleDiv = document.createElement('div');
+      titleDiv.className = 'title';
+      let circle = document.createElement('i');
+      circle.className = 'fas fa-circle';
+      let titleEv = document.createElement('h3');
+      titleEv.className = 'event-title';
+      if (event.status) {
+        titleEv.style.textDecoration = 'line-through';
+      }
+      titleEv.innerHTML = event.title;
+      titleDiv.append(circle);
+      titleDiv.append(titleEv);
+      let timeEv = document.createElement('span');
+      timeEv.className = 'event-time';
+      timeEv.innerHTML = outputtingDate(event.dateCreation);
+      divBody.append(titleDiv);
+      divBody.append(timeEv);
+      let doneDiv = document.createElement('div');
+      doneDiv.className = 'col-2 done-text';
+      doneDiv.innerHTML = ' ✓ ';
+      doneDiv.addEventListener('click', (e) => {
+        console.log(e.currentTarget.parentNode)
+        console.log(event.id);
+        fetch(`https://localhost:44322/api/User/set-status?id=${event.id}`, { method: 'POST' }
+        )
+          .then((response) => {
+            if (response.status == 200) {
+              titleEv.style.textDecoration = 'line-through'
+            }
+          });
+      })
+      row.append(divBody);
+      row.append(doneDiv);
+      eventsContainer.append(row);
     }
   });
-
-  if (events === "") {
-    events = `<div class="no-event">
+  if (eventsContainer.children.length === 0) {
+    eventsContainer.innerHTML = `<div class="no-event">
             <h3>Немає подій</h3>
         </div>`;
   }
-  eventsContainer.innerHTML = events;
- 
+
 }
 
 //function to add event
@@ -327,26 +353,7 @@ addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
 
-//allow only time in eventtime from and to
-// addEventFrom.addEventListener("input", (e) => {
-//   addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g, "");
-//   if (addEventFrom.value.length === 2) {
-//     addEventFrom.value += ":";
-//   }
-//   if (addEventFrom.value.length > 5) {
-//     addEventFrom.value = addEventFrom.value.slice(0, 5);
-//   }
-// });
 
-// addEventTo.addEventListener("input", (e) => {
-//   addEventTo.value = addEventTo.value.replace(/[^0-9:]/g, "");
-//   if (addEventTo.value.length === 2) {
-//     addEventTo.value += ":";
-//   }
-//   if (addEventTo.value.length > 5) {
-//     addEventTo.value = addEventTo.value.slice(0, 5);
-//   }
-// });
 
 //function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
@@ -358,25 +365,6 @@ addEventSubmit.addEventListener("click", () => {
     alert("Будь ласка заповніть всі поля");
     return;
   }
-
-  //check correct time format 24 hour
-  // const timeFromArr = eventTimeFrom.split(":");
-  // const timeToArr = eventTimeTo.split(":");
-  // if (
-  //   timeFromArr.length !== 2 ||
-  //   timeToArr.length !== 2 ||
-  //   timeFromArr[0] > 23 ||
-  //   timeFromArr[1] > 59 ||
-  //   timeToArr[0] > 23 ||
-  //   timeToArr[1] > 59
-  // ) {
-  //   alert("Invalid Time Format");
-  //   return;
-  // }
-
-  // const timeFrom = customConvertTime(eventTimeFrom);
-  // const timeTo = customConvertTime(eventTimeTo);
-
 
   const newEvent = {
     title: eventTitle,
@@ -447,37 +435,37 @@ date.setMonth(month);
 console.log(date);
 return date;
 }
-//function to delete event when clicked on event
+// function to delete event when clicked on event
 
-eventsContainer.addEventListener("click", (e) => {
-  // if (e.target.classList.contains("event")) {
-  //   if (confirm("Ви хочете видалити дану подію?")) {
-  //     const eventTitle = e.target.children[0].children[1].innerHTML;
-  //     eventsArr.forEach((event) => {
-  //       if (
-  //         item.dateCreation.getDate() === activeDay &&
-  //         item.dateCreation.getMonth() === month + 1 &&
-  //         item.dateCreation.getFullYear() === year
-  //       ) {
-  //         event.events.forEach((item, index) => {
-  //           if (item.title === eventTitle) {
-  //             event.events.splice(index, 1);
-  //           }
-  //         });
-  //         //if no events left in a day then remove that day from eventsArr
-  //         if (event.events.length === 0) {
-  //           eventsArr.splice(eventsArr.indexOf(event), 1);
-  //           //remove event class from day
-  //           const activeDayEl = document.querySelector(".day.active");
-  //           if (activeDayEl.classList.contains("event")) {
-  //             activeDayEl.classList.remove("event");
-  //           }
-  //         }
-  //       }
-  //     });
-  //     updateEvents(activeDay);
-  //   }
-  // }
-});
+// eventsContainer.addEventListener("click", (e) => {
+//   if (e.target.classList.contains("event")) {
+//     if (confirm("Ви хочете видалити дану подію?")) {
+//       const eventTitle = e.target.children[0].children[1].innerHTML;
+//       eventsArr.forEach((event) => {
+//         if (
+//           item.dateCreation.getDate() === activeDay &&
+//           item.dateCreation.getMonth() === month + 1 &&
+//           item.dateCreation.getFullYear() === year
+//         ) {
+//           event.events.forEach((item, index) => {
+//             if (item.title === eventTitle) {
+//               event.events.splice(index, 1);
+//             }
+//           });
+//           //if no events left in a day then remove that day from eventsArr
+//           if (event.events.length === 0) {
+//             eventsArr.splice(eventsArr.indexOf(event), 1);
+//             //remove event class from day
+//             const activeDayEl = document.querySelector(".day.active");
+//             if (activeDayEl.classList.contains("event")) {
+//               activeDayEl.classList.remove("event");
+//             }
+//           }
+//         }
+//       });
+//       updateEvents(activeDay);
+//     }
+//   }
+// });
 
 
