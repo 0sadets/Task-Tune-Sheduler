@@ -58,7 +58,31 @@ namespace CourseWork.Controllers
             context.SaveChanges();
         }
 
+        [HttpGet("get-no-date-note")]
+        public List<NoteDTO> GetList()
+        {
+            return context.Notes.Where(x => x.EndDate == null && x.DateCreation == null).Select(n => new NoteDTO()
+            {
+                Id = n.Id,
+                Title = n.Title,
+                Status = n.Status,
+                User = context.Users.FirstOrDefault(u => u.Id == n.UserId).Email
+            }).ToList();
+        }
+        [HttpPost("add-no-date-note")]
 
+        public void AddNoDateNote([FromQuery] string title, string user)
+        {
+            var newnote = new Note()
+            {
+                Title = title,
+                UserId = context.Users.FirstOrDefault(u => u.Email == user).Id,
+                Status = false,
+                Description = ""
+            };
+            context.Notes.Add(newnote);
+            context.SaveChanges();
+        }
 
 
 

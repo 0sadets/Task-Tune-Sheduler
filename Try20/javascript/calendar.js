@@ -33,6 +33,7 @@ window.onload = () => {
         document.querySelector(".currentUser").value = data[0].user;
         console.log(data[0].user);
       });
+      initCalendar();
     });
   // updateEvents()
   customConvertTime("14:00");
@@ -310,8 +311,6 @@ function updateEvents(date) {
       doneDiv.className = 'col-2 done-text';
       doneDiv.innerHTML = ' ✓ ';
       doneDiv.addEventListener('click', (e) => {
-        console.log(e.currentTarget.parentNode)
-        console.log(event.id);
         fetch(`https://localhost:44322/api/User/set-status?id=${event.id}`, { method: 'POST' }
         )
           .then((response) => {

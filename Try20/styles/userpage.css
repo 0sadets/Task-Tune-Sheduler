@@ -1,0 +1,60 @@
+html, body{
+font-family: 'Raleway', sans-serif;
+height: 100%;
+}
+
+header{
+  width: 100%;
+  border-bottom: 3px solid;
+  border-bottom-color: #116466;
+  border-width: 100%;
+  height: 60px;
+  font-size: 20px;
+}
+
+#homePhoto{
+  width: 60px;
+  height: auto;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: bottom;
+}
+#photoOfHouse{
+  margin: 0;
+  padding: 0;
+}
+
+#headerMenu{
+  color: #116466;
+}
+#logOut{
+  border-color: #116466;
+  color: #116466 !important;
+}
+#myPagebtn {
+  border-color: #116466;
+  background-color: #116466;
+}
+#logOut:hover {
+  background-color: #D1E8E2;
+}
+
+#footer{
+  height: 60px;
+  border-top: 3px solid;
+  border-top-color: #116466;
+  padding: 0;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #D1E8E2;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb {
+  background: #116466;
+  border-radius: 50px;
+}

@@ -74,7 +74,10 @@ html, body{
   padding: 28px 0;
   background-color: #D1E8E2;
   border: 2px solid #116466;
+  min-height: 500px;
  }
+
+
  .task-input{
   height: 52px;
   padding: 0 25px;
@@ -197,9 +200,6 @@ html, body{
   user-select: none;
   margin-left: 12px;
   word-wrap: break-word;
-}
-.task label p.checked{
-  text-decoration: line-through;
 }
 .task-box .settings{
   position: relative;

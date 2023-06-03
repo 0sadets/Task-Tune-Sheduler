@@ -13,8 +13,8 @@ namespace CourseWork.ViewModels
         public string Title { get; set; }
         public string Description { get; set; }
         public bool Status { get; set; }
-        public DateTime DateCreation { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime?     DateCreation { get; set; }
+        public DateTime?     EndDate { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]

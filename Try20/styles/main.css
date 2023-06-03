@@ -22,7 +22,6 @@ header{
 
 #signInButton:hover{
   background-color: #D1E8E2;
-
 }
 #homePhoto{
   width: 60px;
@@ -95,10 +94,10 @@ header{
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #116466;
+  background: #D1E8E2;
   border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-clr);
+  background: #116466;
   border-radius: 50px;
 }
