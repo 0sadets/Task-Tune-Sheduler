@@ -61,8 +61,8 @@ html, body{
   }
 
  *{
-  margin: 0;
-  padding: 0;
+  /* margin: 0;
+  padding: 0; */
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
  }
@@ -122,16 +122,19 @@ html, body{
   font-size: 17px;
   color: #444444;
   cursor: pointer;
+  margin-top: 2px;
 }
 .filters span:first-child{
   margin-left: 0;
+}
+.filters{
+  margin: 7px;
 }
 .filters span.active{
   color: #3ea8a9;
 }
 .controls .clear-btn{
   border: none;
-  opacity: 0.6;
   outline: none;
   color: #fff;
   cursor: pointer;
@@ -139,7 +142,6 @@ html, body{
   padding: 7px 13px;
   border-radius: 4px;
   letter-spacing: 0.3px;
-  pointer-events: none;
   transition: transform 0.25s ease;
   background-color:  #116466 ;
 }
@@ -249,4 +251,41 @@ html, body{
 }
 .settings li i{
   padding-right: 8px;
+}
+
+.submitChangesBts{
+  background-color: #116466;
+  color: #D1E8E2;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #116466;
+}
+.submitChangesBts:hover{
+  background-color: #D1E8E2;
+  color: #116466;
+  font-weight: 600;
+}
+#modalWindow{
+  border: 2px solid #116466;
+  background-color: #eff6f4;
+  box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
+}
+.todo-input{
+  width: 400px;
+  height: 40px;
+  padding: 5px;
+  border: 2px solid #116466;
+  border-radius: 8px;
+ 
+}
+.todo-input:focus{
+  outline-width: 1px;
+  outline-style: solid;
+  outline-color: #116466;
+}
+#editModalTitle{
+  color: #0e4f50;
+  margin-bottom: 15px;
+  font-weight: 600px;
 }

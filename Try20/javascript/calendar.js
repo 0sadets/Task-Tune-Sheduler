@@ -1,46 +1,32 @@
 function outputtingDate(date) {
-  return `${date.getFullYear()}–${date.getMonth() + 1}–${date.getDate()}`
+  return `${date.getFullYear()}–${date.getMonth() + 1}–${date.getDate()}`;
 }
-
-// function CORSSolve(){
-//   const xhttp = new XMLHttpRequest()
-//   xhttp.onreadystatechange = function(){
-//     if (this.readyState == 4 && this.status == 200)
-//     {
-//       document.getElementById('data').innerText = xhttp.responseText
-//     }
-//   };
-//   xhttp,open("GET", "https://localhost:44322/api/User/add-note", true)
-//   xhttp.send()
-// }
-
-
 let eventsArr = [];
 window.onload = () => {
   fetch("https://localhost:44322/api/User/get-notes")
     .then((response) => response.json())
     .then((data) => {
-      data.forEach(item => {
+      data.forEach((item) => {
         eventsArr.push({
           id: item.id,
           title: item.title,
-          dateCreation: new Date(`${item.dateCreation.substring(0, item.dateCreation.indexOf('T'))}`),
-          endDate: new Date(`${item.endDate.substring(0, item.endDate.indexOf('T'))}`),
+          dateCreation: new Date(
+            `${item.dateCreation?.substring(0, item.dateCreation.indexOf("T"))}`
+          ),
+          endDate: new Date(
+            `${item.endDate?.substring(0, item.endDate.indexOf("T"))}`
+          ),
           description: item.description,
           status: item.status,
-          user: item.user
+          user: item.user,
         });
         document.querySelector(".currentUser").value = data[0].user;
         console.log(data[0].user);
       });
       initCalendar();
     });
-  // updateEvents()
-  customConvertTime("14:00");
-  
-  //CORSSolve()
+  // customConvertTime("14:00");
 };
-
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
@@ -58,18 +44,15 @@ const calendar = document.querySelector(".calendar"),
   addEventDesc = document.querySelector(".event-desc"),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
-  addEventSubmit = document.querySelector(".add-event-btn ")
- ;
-
-function setStatus(){
+  addEventSubmit = document.querySelector(".add-event-btn ");
+function setStatus() {
   console.log("event");
-};
+}
 
 let today = new Date();
 let activeDay;
 let month = today.getMonth();
 let year = today.getFullYear();
-
 
 const months = [
   "Січень",
@@ -86,8 +69,6 @@ const months = [
   "Грудень",
 ];
 
-
-
 //function to add days in days with class day and prev-date next-date on previous month and next month days and active on today
 function initCalendar() {
   const firstDay = new Date(year, month, 1);
@@ -97,7 +78,6 @@ function initCalendar() {
   const lastDate = lastDay.getDate();
   const day = firstDay.getDay();
   const nextDays = 7 - lastDay.getDay() - 1;
-  
 
   date.innerHTML = months[month] + " " + year;
 
@@ -117,7 +97,7 @@ function initCalendar() {
         item.dateCreation.getFullYear() === year
       ) {
         event = true;
-        console.log(event)
+        console.log(event);
       }
     });
     if (
@@ -148,8 +128,6 @@ function initCalendar() {
   }
   daysContainer.innerHTML = days;
   addListner();
-  
-  
 }
 
 //function to add month and year on prev and next button
@@ -256,7 +234,7 @@ function gotoDate() {
       month = dateArr[0] - 1;
       year = dateArr[1];
       initCalendar();
-      
+
       return;
     }
   }
@@ -270,15 +248,14 @@ function getActiveDay(date) {
 
   eventDate.innerHTML = date + " " + months[month] + " " + year;
   let currentDate = document.querySelector(".currentDate");
-currentDate.value = `${year}-${month+1}-${date}`;
-console.log(currentDate.value);
-
+  currentDate.value = `${year}-${month + 1}-${date}`;
+  console.log(currentDate.value);
 }
 
 //function update events when a day is active
 function updateEvents(date) {
   let events = "";
-  eventsContainer.innerHTML = '';
+  eventsContainer.innerHTML = "";
   eventsArr.forEach((event) => {
     console.log(event.dateCreation.getMonth());
     if (
@@ -286,39 +263,48 @@ function updateEvents(date) {
       month === event.dateCreation.getMonth() &&
       year === event.dateCreation.getFullYear()
     ) {
-      let row = document.createElement('div');
-      row.className = 'event d-flex';
-      let divBody = document.createElement('div');
-      divBody.className = 'col-10 align-items-center';
-      let titleDiv = document.createElement('div');
-      titleDiv.className = 'title';
-      let circle = document.createElement('i');
-      circle.className = 'fas fa-circle';
-      let titleEv = document.createElement('h3');
-      titleEv.className = 'event-title';
+      let row = document.createElement("div");
+      row.className = "event d-flex pt-3 m-1 justify-content-around  ";
+      let divBody = document.createElement("div");
+      divBody.className = "col-8 align-items-center";
+      let circle = document.createElement("i");
+      circle.className = "fas fa-circle ";
+      let titleEv = document.createElement("p");
+      titleEv.className = "event-title m-0";
       if (event.status) {
-        titleEv.style.textDecoration = 'line-through';
+        titleEv.style.textDecoration = "line-through";
       }
       titleEv.innerHTML = event.title;
-      titleDiv.append(circle);
-      titleDiv.append(titleEv);
-      let timeEv = document.createElement('span');
-      timeEv.className = 'event-time';
+      let descEv = document.createElement("h3");
+      descEv.className = "desc-ev";
+      descEv.innerHTML = event.description;
+      // descDiv.append(descEv);
+      let timeEv = document.createElement("span");
+      timeEv.className = "event-time";
       timeEv.innerHTML = outputtingDate(event.dateCreation);
-      divBody.append(titleDiv);
-      divBody.append(timeEv);
-      let doneDiv = document.createElement('div');
-      doneDiv.className = 'col-2 done-text';
-      doneDiv.innerHTML = ' ✓ ';
-      doneDiv.addEventListener('click', (e) => {
-        fetch(`https://localhost:44322/api/User/set-status?id=${event.id}`, { method: 'POST' }
-        )
-          .then((response) => {
-            if (response.status == 200) {
-              titleEv.style.textDecoration = 'line-through'
-            }
-          });
-      })
+      let bodySpan = document.createElement("span");
+      bodySpan.className = "d-flex flex-column align-items-start";
+      bodySpan.append(titleEv);
+      bodySpan.append(descEv);
+      bodySpan.append(timeEv);
+      
+      divBody.append(bodySpan);
+      let doneDiv = document.createElement("div");
+      doneDiv.className = "col-2 done-text";
+      doneDiv.innerHTML = " ✓ ";
+      if(event.status.toString() == "true"){
+        doneDiv.style.display = "none";
+      }
+      doneDiv.addEventListener("click", (e) => {
+        fetch(`https://localhost:44322/api/User/set-status?id=${event.id}`, {
+          method: "POST",
+        }).then((response) => {
+          if (response.status == 200) {
+            titleEv.style.textDecoration = "line-through";
+          }
+        });
+      });
+      row.append(circle);
       row.append(divBody);
       row.append(doneDiv);
       eventsContainer.append(row);
@@ -329,7 +315,6 @@ function updateEvents(date) {
             <h3>Немає подій</h3>
         </div>`;
   }
-
 }
 
 //function to add event
@@ -352,15 +337,13 @@ addEventTitle.addEventListener("input", (e) => {
   addEventTitle.value = addEventTitle.value.slice(0, 60);
 });
 
-
-
 //function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
-  // const eventTimeFrom = addEventFrom.value;
-  // const eventTimeTo = addEventTo.value;
+  const eventTimeFrom = addEventFrom.value;
+  const eventTimeTo = addEventTo.value;
   const eventDesc = addEventDesc.value;
-  if (eventTitle === ""  || eventDesc === "") {
+  if (eventTitle === "" || eventDesc === "") {
     alert("Будь ласка заповніть всі поля");
     return;
   }
@@ -371,8 +354,7 @@ addEventSubmit.addEventListener("click", () => {
     endDate: timeTo,
     description: eventDesc,
     status: false,
-    user: "sashaosadets@gmail.com"
-    
+    user: "sashaosadets@gmail.com",
   };
   console.log(newEvent);
 
@@ -418,53 +400,4 @@ addEventSubmit.addEventListener("click", () => {
   if (!activeDayEl.classList.contains("event")) {
     activeDayEl.classList.add("event");
   }
-  
 });
-
-function customConvertTime(time)
-{
-// var target = new Date(`${year}-${month}-${activeDay}T${time}`);
-var date = new Date();
-date.setHours(time.substr(0,time.indexOf(":")));
-date.setMinutes(time.substr(time.indexOf(":")+1));
-date.setSeconds(0);
-date.setDate(activeDay);
-date.setFullYear(year);
-date.setMonth(month);
-console.log(date);
-return date;
-}
-// function to delete event when clicked on event
-
-// eventsContainer.addEventListener("click", (e) => {
-//   if (e.target.classList.contains("event")) {
-//     if (confirm("Ви хочете видалити дану подію?")) {
-//       const eventTitle = e.target.children[0].children[1].innerHTML;
-//       eventsArr.forEach((event) => {
-//         if (
-//           item.dateCreation.getDate() === activeDay &&
-//           item.dateCreation.getMonth() === month + 1 &&
-//           item.dateCreation.getFullYear() === year
-//         ) {
-//           event.events.forEach((item, index) => {
-//             if (item.title === eventTitle) {
-//               event.events.splice(index, 1);
-//             }
-//           });
-//           //if no events left in a day then remove that day from eventsArr
-//           if (event.events.length === 0) {
-//             eventsArr.splice(eventsArr.indexOf(event), 1);
-//             //remove event class from day
-//             const activeDayEl = document.querySelector(".day.active");
-//             if (activeDayEl.classList.contains("event")) {
-//               activeDayEl.classList.remove("event");
-//             }
-//           }
-//         }
-//       });
-//       updateEvents(activeDay);
-//     }
-//   }
-// });
-
-

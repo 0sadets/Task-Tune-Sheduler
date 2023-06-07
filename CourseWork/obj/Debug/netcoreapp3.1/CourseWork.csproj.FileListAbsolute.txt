@@ -1,3 +1,7 @@
+E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\appsettings.Development.json
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\appsettings.json
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\CourseWork.exe
@@ -36,18 +40,14 @@ E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcore
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
-E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
-E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
-E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
-E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll

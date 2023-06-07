@@ -354,15 +354,15 @@ footer{
   justify-content: space-between;
   align-items: center;
   gap: 5px;
-  padding: 0 20px;
-  padding-left: 50px;
+  padding: 5px;
+  /* padding-left: 50px; */
   color: #fff;
   background: linear-gradient(90deg, #329294, transparent);
   cursor: pointer;
 }
 /* even event */
 .events .event:nth-child(even) {
-  background: transparent;
+  background: linear-gradient(90deg, #329294, transparent);
 }
 .events .event:hover {
   background: linear-gradient(90deg, var(--primary-clr), transparent);
@@ -373,9 +373,9 @@ footer{
   pointer-events: none;
 }
 .events .event .title .event-title {
-  font-size: 1rem;
+  font-size: 1em !important;
   font-weight: 400;
-  margin-left: 20px;
+  margin: 0 !important;
 }
 .events .event i {
   color: var(--primary-clr);
@@ -385,14 +385,22 @@ footer{
   color: #fff;
 }
 .events .event .event-time {
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 400;
   color: #116466;
-  margin-left: 15px;
   pointer-events: none;
+  margin: 0;
 }
 .events .event:hover .event-time {
   color: #fff;
+}
+.events .event:hover .desc-ev {
+  color: #fff;
+}
+.fa-circle{
+  /* margin-right: 5px;
+  padding-right: 15px; */
+  
 }
 /* add tick in event after */
 .events .event::after {
@@ -565,3 +573,17 @@ background-color: #116466;
 .done-text:hover{
   color: #116466;
 }
+
+.desc-ev{
+  font-size: 0.8em;
+  color: #116466;
+  font-style: italic;
+  margin: 0;
+}
+/* .descDiv:hover{
+  color: #fff;
+}
+
+#divName:hover{
+  color: #fff;
+} */

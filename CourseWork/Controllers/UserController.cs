@@ -47,7 +47,7 @@ namespace CourseWork.Controllers
             context.Notes.Add(newNote);
             context.SaveChanges();
             return Redirect("http://127.0.0.1:5500/pages/calendar.html");
-            
+
             //    return null;
         }
         [HttpPost("set-status")]
@@ -83,8 +83,45 @@ namespace CourseWork.Controllers
             context.Notes.Add(newnote);
             context.SaveChanges();
         }
-
-
-
+        [HttpPost("delete-all-no-date")]
+        public void DeleteAllNoDateNotes()
+        {
+            context.Notes.RemoveRange(context.Notes.Where(x => x.EndDate == null && x.DateCreation == null));
+            context.SaveChanges();
+        }
+        [HttpPost("edit-no-date-note")]
+        public void EditNoDateNote([FromQuery] string id, string title)
+        {
+            var note = context.Notes.FirstOrDefault(x => x.Id == Int32.Parse(id));
+            note.Title = title;
+            context.Notes.Update(note);
+            context.SaveChanges();
+        }
+        [HttpPost("delete-no-date-note-by-id")]
+        public void DeleteNoDateNote([FromQuery] string id)
+        {
+            var note = context.Notes.FirstOrDefault(x => x.Id == Int32.Parse(id));
+            context.Notes.Remove(note);
+            context.SaveChanges();
+        }
+        //[HttpGet("get-user-info")]
+        //public List<UserDTO> GetUser()
+        //{
+        //    return context.Users.Select(n => new UserDTO()
+        //    {
+        //        Id = n.Id,
+        //        LastName = n.LastName,
+        //        MiddleName = n.MiddleName,
+        //        Email = n.Email,
+        //        FirstName = n.FirstName,
+        //        Birthday = n.Birthday,
+        //        UserName = n.UserName
+        //    }).ToList();
+        //}
     }
+
+
+
+
+
 }
