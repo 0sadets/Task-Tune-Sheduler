@@ -1,12 +1,18 @@
 ﻿using CourseWork.DataLayer;
 using CourseWork.DTOModel;
+using CourseWork.JWT;
+using CourseWork.Results;
+using CourseWork.Validator;
 using CourseWork.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CourseWork.Controllers
 {
@@ -15,9 +21,16 @@ namespace CourseWork.Controllers
     public class UserController : ControllerBase
     {
         private readonly DataContext context;
-        public UserController(DataContext dataContext)
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly IJWTTokenServices jwtTokenService;
+
+        public UserController(DataContext dataContext, UserManager<User> _userManager, SignInManager<User> _signInManager, IJWTTokenServices _jwtTokenService)
         {
             this.context = dataContext;
+            this.userManager = _userManager;
+            this.signInManager = _signInManager;
+            this.jwtTokenService = _jwtTokenService;
         }
         [HttpGet("get-notes")]
         public List<NoteDTO> GetNotes()
@@ -104,20 +117,74 @@ namespace CourseWork.Controllers
             context.Notes.Remove(note);
             context.SaveChanges();
         }
-        //[HttpGet("get-user-info")]
-        //public List<UserDTO> GetUser()
-        //{
-        //    return context.Users.Select(n => new UserDTO()
-        //    {
-        //        Id = n.Id,
-        //        LastName = n.LastName,
-        //        MiddleName = n.MiddleName,
-        //        Email = n.Email,
-        //        FirstName = n.FirstName,
-        //        Birthday = n.Birthday,
-        //        UserName = n.UserName
-        //    }).ToList();
-        //}
+
+        [HttpPost("register")]
+        public async Task<ResultDTO> Register([FromQuery] string userName, string lastName, string firstName)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new ResultErrorDTO()
+                    {
+                        Status = 401,
+                        Message = "ERROR",
+                        Errors = CustomValidator.getErrorsByModel(ModelState)
+                    };
+                }
+
+                var user = new User()
+                {
+                    //UserName = model.Email,
+                    //Email = model.Email,
+                    //Birthday = model.Birthday,
+                    //FirstName = model.FirstName,
+                    //MiddleName = model.MiddleName,
+                    //LastName = model.LastName
+                };
+
+
+                //IdentityResult result = await userManager.CreateAsync(user, model.Password);
+                //result = await userManager.AddToRoleAsync(user, "user");
+
+                //if (result.Succeeded)
+                //{
+                //    context.Users.Attach(user);
+                //    context.SaveChanges();
+
+                return new ResultDTO()
+                {
+                    Message = "OK",
+                    Status = 200
+                };
+                //}
+                //else
+                //{
+                //    return new ResultErrorDTO()
+                //    {
+                //        Message = "ERROR",
+                //        Status = 403,
+                //        Errors = CustomValidator.getErrorsByIdentityResult(result)
+                //    };
+                //}
+
+
+            }
+            catch (Exception e)
+            {
+                return new ResultErrorDTO
+                {
+                    Status = 500,
+                    Message = e.Message,
+                    Errors = new List<string>()
+                    {
+                        e.Message
+                    }
+                };
+            }
+
+        }
+
     }
 
 

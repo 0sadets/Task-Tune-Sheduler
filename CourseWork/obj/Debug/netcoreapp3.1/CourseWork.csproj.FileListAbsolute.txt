@@ -63,3 +63,4 @@ E:\унік\2курс\2 семестр\курсач\CourseWork\obj\Debug\netcore
 E:\унік\2курс\2 семестр\курсач\CourseWork\obj\Debug\netcoreapp3.1\CourseWork.dll
 E:\унік\2курс\2 семестр\курсач\CourseWork\obj\Debug\netcoreapp3.1\CourseWork.pdb
 E:\унік\2курс\2 семестр\курсач\CourseWork\obj\Debug\netcoreapp3.1\CourseWork.genruntimeconfig.cache
+E:\унік\2курс\2 семестр\курсач\CourseWork\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll

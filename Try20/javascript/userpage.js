@@ -1,4 +1,24 @@
-
+window.onload = () => {
+  const user = {
+                
+    userName: "test",
+    lastName: "testlast",
+    middleName: "jdsk",
+    firstName: "ddas",
+    birthday: null,
+    email: "mailas@gmail.com",
+    password: "Qwerty1!"
+  }
+  fetch(`https://localhost:44322/api/User/register?username=${user.userName}&firstName=${user.firstName}&lastName=${user.lastName}`, {
+              method: "POST",
+              
+            }).then((response) => {
+              console.log(response);
+              if (response.status == 200) {
+               
+              }
+            });
+}
 
 function loadTodos() {
   fetch("https://localhost:44322/api/User/get-no-date-note")
