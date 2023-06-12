@@ -3,7 +3,15 @@ function outputtingDate(date) {
 }
 let eventsArr = [];
 window.onload = () => {
-  fetch("https://localhost:44322/api/User/get-notes")
+  if(localStorage.getItem("email") != null){
+    console.log(localStorage.getItem("email"));
+    document.querySelector(".loginBtn").classList.add("d-none");
+  }
+  else{
+    document.querySelector(".menuIsLogin").classList.add("d-none");
+    document.querySelector(".noLoginBtn").classList.add("d-none");
+  }
+  fetch(`https://localhost:44322/api/User/get-notes?email=${localStorage.getItem("email")}`)
     .then((response) => response.json())
     .then((data) => {
       data.forEach((item) => {
@@ -20,13 +28,14 @@ window.onload = () => {
           status: item.status,
           user: item.user,
         });
-        document.querySelector(".currentUser").value = data[0].user;
-        console.log(data[0].user);
+        document.querySelector(".currentUser").value = localStorage.getItem("email");
       });
       initCalendar();
     });
-  // customConvertTime("14:00");
 };
+document.querySelector("#logOut").addEventListener("click", () =>{
+  localStorage.clear();
+})
 const calendar = document.querySelector(".calendar"),
   date = document.querySelector(".date"),
   daysContainer = document.querySelector(".days"),
@@ -278,7 +287,6 @@ function updateEvents(date) {
       let descEv = document.createElement("h3");
       descEv.className = "desc-ev";
       descEv.innerHTML = event.description;
-      // descDiv.append(descEv);
       let timeEv = document.createElement("span");
       timeEv.className = "event-time";
       timeEv.innerHTML = outputtingDate(event.dateCreation);
@@ -287,13 +295,12 @@ function updateEvents(date) {
       bodySpan.append(titleEv);
       bodySpan.append(descEv);
       bodySpan.append(timeEv);
-      
       divBody.append(bodySpan);
       let doneDiv = document.createElement("div");
       doneDiv.className = "col-2 done-text";
       doneDiv.innerHTML = " ✓ ";
       if(event.status.toString() == "true"){
-        doneDiv.style.display = "none";
+        doneDiv.style.visibility = "hidden";
       }
       doneDiv.addEventListener("click", (e) => {
         fetch(`https://localhost:44322/api/User/set-status?id=${event.id}`, {

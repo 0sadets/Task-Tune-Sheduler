@@ -11,5 +11,6 @@ namespace CourseWork.DTOModel
         public DateTime? DateCreation { get; set; }
         public DateTime? EndDate { get; set; }
         public string User { get; set; }
+        
     }
 }

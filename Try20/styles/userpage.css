@@ -29,6 +29,18 @@ header{
 #headerMenu{
   color: #116466;
 }
+
+#signInButton{
+  border-color: #116466;
+  color: #116466 !important;
+}
+#signUpButton{
+  border-color: #116466;
+  background-color: #116466;
+}
+#signInButton:hover{
+  background-color: #D1E8E2;
+}
 #logOut{
   border-color: #116466;
   color: #116466 !important;
@@ -61,9 +73,9 @@ header{
 .div-table{
   display: table;         
   width: auto;
-  border: 1px solid #116466;
+  /* border: 1px solid #116466; */
   margin: 10px;
-  padding: 10px;
+  /* padding: 10px; */
   
 }
 .rows{
@@ -81,4 +93,9 @@ p{
   padding: 15px;
   width: 200px;
   margin: 3px 0;
+}
+.username, .pib, .email, .bday{
+  border: 1px solid #116466;
+  padding: 15px;
+  width: 399px;
 }

@@ -14,21 +14,33 @@ header{
 header li{
   font-size: 20px;  
 }
-
+a{
+  color: #116466;
+}
+li:hover{
+  border-bottom: 3px #116466 solid;
+}
 #signInButton{
   border-color: #116466;
-  color: #116466;
+  color: #116466 !important;
 }
 #signUpButton{
   border-color: #116466;
   background-color: #116466;
 }
-a{
-  color: #116466;
-}
 #signInButton:hover{
   background-color: #D1E8E2;
-
+}
+#logOut{
+  border-color: #116466;
+  color: #116466 !important;
+}
+#myPagebtn {
+  border-color: #116466;
+  background-color: #116466;
+}
+#logOut:hover {
+  background-color: #D1E8E2;
 }
 #homePhoto{
   width: 60px;
@@ -48,7 +60,6 @@ a{
   color: #116466;
 }
 footer{
-  /* height: 15px; */
   border-top: 3px solid;
   border-top-color: #116466;
   padding: 0;
@@ -63,12 +74,6 @@ footer{
 :root {
   --primary-clr: #116466;
 }
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-} */
-/* nice scroll bar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -80,16 +85,6 @@ footer{
   background: var(--primary-clr);
   border-radius: 50px;
 }
-
-/* body {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 30px;
-  background-color: #e2e1dc;
-} */
 .container {
   height: auto;
   padding: 0px;
@@ -397,12 +392,6 @@ footer{
 .events .event:hover .desc-ev {
   color: #fff;
 }
-.fa-circle{
-  /* margin-right: 5px;
-  padding-right: 15px; */
-  
-}
-/* add tick in event after */
 .events .event::after {
   
   position: absolute;
@@ -551,7 +540,6 @@ footer{
 
 
 
-
 .today-btn{
   color: #116466;
   border: #116466 solid 1px;
@@ -580,10 +568,14 @@ background-color: #116466;
   font-style: italic;
   margin: 0;
 }
-/* .descDiv:hover{
-  color: #fff;
+#logOut{
+  border-color: #116466;
+  color: #116466 !important;
 }
-
-#divName:hover{
-  color: #fff;
-} */
+#myPagebtn {
+  border-color: #116466;
+  background-color: #116466;
+}
+#logOut:hover {
+  background-color: #D1E8E2;
+}

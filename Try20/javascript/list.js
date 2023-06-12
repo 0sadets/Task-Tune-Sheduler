@@ -1,11 +1,22 @@
 let todos = [];
 window.onload = () => {
   loadTodos();
+  if(localStorage.getItem("email") != null){
+    console.log(localStorage.getItem("email"));
+    document.querySelector(".loginBtn").classList.add("d-none");
+  }
+  else{
+    document.querySelector(".menuIsLogin").classList.add("d-none");
+    document.querySelector(".noLoginBtn").classList.add("d-none");
+  }
 };
+document.querySelector("#logOut").addEventListener("click", () =>{
+  localStorage.clear();
+})
 
 function loadTodos() {
   todos.length = 0;
-  fetch("https://localhost:44322/api/User/get-no-date-note")
+  fetch(`https://localhost:44322/api/User/get-no-date-note?email=${localStorage.getItem("email")}`)
     .then((response) => response.json())
     .then((data) => {
       data.forEach((item) => {
@@ -166,7 +177,7 @@ taskInput.addEventListener("keyup", (e) => {
   if (e.key == "Enter" && userTask) {
     taskInput.value = "";
     fetch(
-      `https://localhost:44322/api/User/add-no-date-note?title=${userTask}&user=sashaosadets@gmail.com`,
+      `https://localhost:44322/api/User/add-no-date-note?title=${userTask}&user=${localStorage.getItem("email")}`,
       {
         method: "POST",
       }

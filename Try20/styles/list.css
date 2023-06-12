@@ -19,10 +19,19 @@ html, body{
     border-color: #116466;
     background-color: #116466;
   }
-  
   #signInButton:hover{
     background-color: #D1E8E2;
-  
+  }
+  #logOut{
+    border-color: #116466;
+    color: #116466 !important;
+  }
+  #myPagebtn {
+    border-color: #116466;
+    background-color: #116466;
+  }
+  #logOut:hover {
+    background-color: #D1E8E2;
   }
   #homePhoto{
     width: 60px;
@@ -41,7 +50,9 @@ html, body{
   #headerMenu{
     color: #116466;
   }
-  
+  li:hover{
+    border-bottom: 3px #116466 solid;
+  }
   #footer{
     height: 60px;
     border-top: 3px solid;

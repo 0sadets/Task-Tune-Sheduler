@@ -32,10 +32,11 @@ namespace CourseWork.Controllers
             this.signInManager = _signInManager;
             this.jwtTokenService = _jwtTokenService;
         }
-        [HttpGet("get-notes")]
-        public List<NoteDTO> GetNotes()
+        [HttpGet("get-notes-by-email")]
+        public List<NoteDTO> GetNotesByEmail([FromQuery] string email)
         {
-            return context.Notes.Select(n => new NoteDTO()
+            var user = context.Users.FirstOrDefault(x => x.Email == email);
+            return context.Notes.Where(x => x.UserId == user.Id).Select(n => new NoteDTO()
             {
                 Id = n.Id,
                 Description = n.Description,
@@ -72,9 +73,10 @@ namespace CourseWork.Controllers
         }
 
         [HttpGet("get-no-date-note")]
-        public List<NoteDTO> GetList()
+        public List<NoteDTO> GetList([FromQuery] string email)
         {
-            return context.Notes.Where(x => x.EndDate == null && x.DateCreation == null).Select(n => new NoteDTO()
+            var user = context.Users.FirstOrDefault(x => x.Email == email);
+            return context.Notes.Where(x => x.EndDate == null && x.DateCreation == null && x.UserId == user.Id).Select(n => new NoteDTO()
             {
                 Id = n.Id,
                 Title = n.Title,
@@ -119,7 +121,7 @@ namespace CourseWork.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ResultDTO> Register([FromQuery] string userName, string lastName, string firstName)
+        public async Task<ResultDTO> Register([FromQuery] string userName, string lastName, string firstName, string middleName, string password, string email, string birthday)
         {
             try
             {
@@ -135,38 +137,38 @@ namespace CourseWork.Controllers
 
                 var user = new User()
                 {
-                    //UserName = model.Email,
-                    //Email = model.Email,
-                    //Birthday = model.Birthday,
-                    //FirstName = model.FirstName,
-                    //MiddleName = model.MiddleName,
-                    //LastName = model.LastName
+                    UserName = userName,
+                    Email = email,
+                    Birthday = DateTime.Parse(birthday),
+                    FirstName = firstName,
+                    MiddleName = middleName,
+                    LastName = lastName
                 };
 
 
-                //IdentityResult result = await userManager.CreateAsync(user, model.Password);
-                //result = await userManager.AddToRoleAsync(user, "user");
+                IdentityResult result = await userManager.CreateAsync(user, password);
+                result = await userManager.AddToRoleAsync(user, "user");
 
-                //if (result.Succeeded)
-                //{
-                //    context.Users.Attach(user);
-                //    context.SaveChanges();
+                if (result.Succeeded)
+                {
+                    context.Users.Attach(user);
+                    context.SaveChanges();
 
-                return new ResultDTO()
+                    return new ResultDTO()
                 {
                     Message = "OK",
                     Status = 200
                 };
-                //}
-                //else
-                //{
-                //    return new ResultErrorDTO()
-                //    {
-                //        Message = "ERROR",
-                //        Status = 403,
-                //        Errors = CustomValidator.getErrorsByIdentityResult(result)
-                //    };
-                //}
+                }
+                else
+                {
+                    return new ResultErrorDTO()
+                    {
+                        Message = "ERROR",
+                        Status = 403,
+                        Errors = CustomValidator.getErrorsByIdentityResult(result)
+                    };
+                }
 
 
             }
@@ -183,6 +185,71 @@ namespace CourseWork.Controllers
                 };
             }
 
+        }
+        [HttpGet("get-user-by-email")]
+        public UserDTO GetUserByEmail ([FromQuery] string email)
+        {
+            var user = context.Users.FirstOrDefault(x => x.Email == email);
+            return new UserDTO()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Email = email,
+                UserName = user.UserName,
+                Birthday = user.Birthday
+            };
+        }
+        [HttpPost("login")]
+        public async Task<ResultDTO> Login([FromQuery] string email, string password)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new ResultErrorDTO
+                    {
+                        Message = "ERROR",
+                        Status = 401,
+                        Errors = CustomValidator.getErrorsByModel(ModelState)
+                    };
+                }
+
+                var result = signInManager.PasswordSignInAsync(email, password, false, false).Result;
+
+                if (!result.Succeeded)
+                {
+                    return new ResultErrorDTO
+                    {
+                        Status = 403,
+                        Message = "ERROR",
+                        Errors = new List<string> { "Incorrect email or password" }
+                    };
+                }
+                else
+                {
+                    var user = await userManager.FindByEmailAsync(email);
+                    await signInManager.SignInAsync(user, false);
+
+
+                    return new ResultLoginDTO
+                    {
+                        Status = 200,
+                        Message = "OK",
+                        Token = jwtTokenService.CreateToken(user)
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                return new ResultErrorDTO
+                {
+                    Status = 500,
+                    Message = "ERROR",
+                    Errors = new List<string> { e.Message }
+                };
+            }
         }
 
     }

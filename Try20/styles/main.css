@@ -19,8 +19,18 @@ header{
   border-color: #116466;
   background-color: #116466;
 }
-
 #signInButton:hover{
+  background-color: #D1E8E2;
+}
+#logOut{
+  border-color: #116466;
+  color: #116466 !important;
+}
+#myPagebtn {
+  border-color: #116466;
+  background-color: #116466;
+}
+#logOut:hover {
   background-color: #D1E8E2;
 }
 #homePhoto{
@@ -36,13 +46,14 @@ header{
   margin: 0;
   padding: 0;
 }
-
+li:hover{
+  border-bottom: 3px #116466 solid;
+}
 #headerMenu{
   color: #116466;
 }
 
 #firstBlock{
-  /* background-color: #ddf5ee; */
   display: flex;
   padding-top: 70px;
   padding-bottom: 70px;
@@ -70,6 +81,7 @@ header{
   border: 1px solid #116466 ;
   color: #0c4b4c;
   background-color: #e8fbf6;
+  cursor: pointer;
 }
 
 #createPlaner{

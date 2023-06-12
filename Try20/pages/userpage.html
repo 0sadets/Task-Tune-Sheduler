@@ -58,41 +58,62 @@
               >TaskTune</a
             >
           </li>
-          <li>
-            <a href="./calendar.html" class="nav-link px-2" id="headerMenu"
-              >Календар</a
-            >
-          </li>
-          <li>
-            <a href="./list.html" class="nav-link px-2" id="headerMenu"
-              >Список задач</a
-            >
-          </li>
-          <li><a href="#" class="nav-link px-2" id="headerMenu">Про нас</a></li>
+          <span class="menuIsLogin d-flex">
+            <li>
+              <a href="./calendar.html" class="nav-link px-2" id="headerMenu"
+                >Календар</a
+              >
+            </li>
+            <li>
+              <a href="./list.html" class="nav-link px-2" id="headerMenu"
+                >Список задач</a
+              >
+            </li>
+          </span>
+          <li><a href="./aboutus.html" class="nav-link px-2" id="headerMenu">Про нас</a></li>
         </ul>
         <div class="col-md-3 text-end pr-7">
-          <a
-            href="./index.html"
-            style="text-decoration: none"
-            class="btn btn-outline-primary me-2"
-            id="logOut"
-          >
-            Вийти</a
-          >
-          <a
-            class="btn btn-primary"
-            href="./userpage.html"
-            role="button"
-            id="myPagebtn"
-            >Моя сторінка</a
-          >
+          <span class="loginBtn">
+            <a
+              href="./signin.html"
+              style="text-decoration: none"
+              class="btn btn-outline-primary me-2"
+              id="signInButton"
+            >
+              Увійти</a
+            >
+            <a
+              class="btn btn-primary"
+              href="./signup.html"
+              role="button"
+              id="signUpButton"
+              >Зареєструватись</a
+            >
+          </span>
+          <span class="noLoginBtn">
+            <a
+              href="./index.html"
+              style="text-decoration: none"
+              class="btn btn-outline-primary me-2"
+              id="logOut"
+            >
+              Вийти</a
+            >
+            <a
+              class="btn btn-primary"
+              href="./userpage.html"
+              role="button"
+              id="myPagebtn"
+              >Моя сторінка</a
+            >
+          </span>
         </div>
       </header>
-      <p class="border-0 align-items-center w-50 text-center pt-4 m-0 display-6">Інформація про користувача</p>
+      <p class="border-0 align-items-center w-50 text-center pt-4 m-0 display-6 my-0">Інформація про користувача</p>
       <div class="div-table">
         <div class="rows">
           <p>Ім'я Користувача</p>
-          <div class="user-name"></div>
+          <div class="username"></div>
         </div>
         <div class="rows">
           <p>ПІБ</p>

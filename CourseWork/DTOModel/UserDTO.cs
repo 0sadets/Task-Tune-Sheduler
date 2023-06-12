@@ -17,7 +17,8 @@ namespace CourseWork.DTOModel
         public DateTime Birthday { get; set; }
         public ICollection<NoteDTO> Notes { get; set; }
         public string Email { get; set; }
-        
+        public string UserName { get; set; }
+
 
 
     }
