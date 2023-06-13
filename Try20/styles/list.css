@@ -257,6 +257,9 @@ html, body{
 .task-menu li:last-child{
   margin-bottom: 0;
 }
+.task-menu li:hover{
+  border: none;
+}
 .settings li:hover{
   background: #f5f5f5;
 }
@@ -264,7 +267,7 @@ html, body{
   padding-right: 8px;
 }
 
-.submitChangesBts{
+.submitChangesBtn{
   background-color: #116466;
   color: #D1E8E2;
   margin-top: 20px;
@@ -272,10 +275,11 @@ html, body{
   border-radius: 5px;
   border: 1px solid #116466;
 }
-.submitChangesBts:hover{
+.submitChangesBtn:hover{
   background-color: #D1E8E2;
   color: #116466;
   font-weight: 600;
+  border: none;
 }
 #modalWindow{
   border: 2px solid #116466;

@@ -11,7 +11,7 @@ window.onload = () => {
     document.querySelector(".menuIsLogin").classList.add("d-none");
     document.querySelector(".noLoginBtn").classList.add("d-none");
   }
-  fetch(`https://localhost:44322/api/User/get-notes?email=${localStorage.getItem("email")}`)
+  fetch(`https://localhost:44322/api/User/get-notes-by-email?email=${localStorage.getItem("email")}`)
     .then((response) => response.json())
     .then((data) => {
       data.forEach((item) => {
@@ -257,6 +257,8 @@ function getActiveDay(date) {
 
   eventDate.innerHTML = date + " " + months[month] + " " + year;
   let currentDate = document.querySelector(".currentDate");
+  let currentUser = document.querySelector(".currentUser");
+  currentUser.value = localStorage.getItem("email");
   currentDate.value = `${year}-${month + 1}-${date}`;
   console.log(currentDate.value);
 }
@@ -365,18 +367,6 @@ addEventSubmit.addEventListener("click", () => {
   };
   console.log(newEvent);
 
-  // fetch("https://localhost:44322/api/User/add-note", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     "Access-Control-Allow-Origin": "*",
-  //   },
-  //   body: JSON.stringify(newEvent)
-  // })
-  //   .then((response) => response.json())
-  //   .then((response) => {
-  //     console.log(response);
-  //   });
 
   let eventAdded = false;
   if (eventsArr.length > 0) {

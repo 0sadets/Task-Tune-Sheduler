@@ -73,10 +73,10 @@ header{
 .div-table{
   display: table;         
   width: auto;
-  /* border: 1px solid #116466; */
   margin: 10px;
-  /* padding: 10px; */
-  
+}
+.textInfoAbout{
+  text-align: center;
 }
 .rows{
   width: 600px;
@@ -86,16 +86,25 @@ header{
   justify-content: space-between;
   padding: 0;
   margin: 0;
+  border-bottom: 1px solid #116466;
 }
 
 p{
-  border: 1px solid #116466;
+  /* border: 1px solid #116466; */
   padding: 15px;
   width: 200px;
-  margin: 3px 0;
+  margin: 20px 0;
+  
+
 }
 .username, .pib, .email, .bday{
-  border: 1px solid #116466;
+  border-left: 1px solid #116466;
   padding: 15px;
   width: 399px;
+}
+.photo{
+  width: 340px;
+  /* width: auto; */
+  height: auto;
+  margin: 50px;
 }

@@ -32,6 +32,20 @@ namespace CourseWork.Controllers
             this.signInManager = _signInManager;
             this.jwtTokenService = _jwtTokenService;
         }
+        [HttpGet("get-notes")]
+        public List<NoteDTO> GetNotes()
+        {
+            return context.Notes.Select(n => new NoteDTO()
+            {
+                Id = n.Id,
+                Description = n.Description,
+                Title = n.Title,
+                DateCreation = n.DateCreation,
+                EndDate = n.EndDate,
+                Status = n.Status,
+                User = context.Users.FirstOrDefault(u => u.Id == n.UserId).Email
+            }).ToList();
+        }
         [HttpGet("get-notes-by-email")]
         public List<NoteDTO> GetNotesByEmail([FromQuery] string email)
         {
