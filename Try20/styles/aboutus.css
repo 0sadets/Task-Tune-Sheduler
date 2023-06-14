@@ -99,3 +99,10 @@ html, body{
   .thirdText:hover{
   border: none;
   }
+  .hrefs{
+    color: black;
+    text-decoration: none;
+  }
+  .hrefs:hover{
+    cursor: pointer;
+  }
