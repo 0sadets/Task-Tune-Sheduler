@@ -97,7 +97,6 @@ function initCalendar() {
   }
 
   for (let i = 1; i <= lastDate; i++) {
-    //check if event is present on that day
     let event = false;
     eventsArr.forEach((item) => {
       if (
@@ -131,7 +130,6 @@ function initCalendar() {
       }
     }
   }
-
   for (let j = 1; j <= nextDays; j++) {
     days += `<div class="day next-date">${j}</div>`;
   }
@@ -349,8 +347,6 @@ addEventTitle.addEventListener("input", (e) => {
 //function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
-  const eventTimeFrom = addEventFrom.value;
-  const eventTimeTo = addEventTo.value;
   const eventDesc = addEventDesc.value;
   if (eventTitle === "" || eventDesc === "") {
     alert("Будь ласка заповніть всі поля");

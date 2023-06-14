@@ -95,9 +95,6 @@ padding: 100px;
 .name {
   display: flex;
 }
-#firstname, #lastname, #middlename :hover{
-  
-}
 ::-webkit-scrollbar {
   width: 6px;
 }

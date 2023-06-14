@@ -76,7 +76,6 @@ namespace CourseWork.Controllers
             context.SaveChanges();
             return Redirect("http://127.0.0.1:5500/pages/calendar.html");
 
-            //    return null;
         }
         [HttpPost("set-status")]
         public void SetStatus([FromQuery] string id)

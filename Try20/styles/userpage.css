@@ -90,7 +90,6 @@ header{
 }
 
 p{
-  /* border: 1px solid #116466; */
   padding: 15px;
   width: 200px;
   margin: 20px 0;
@@ -104,7 +103,6 @@ p{
 }
 .photo{
   width: 340px;
-  /* width: auto; */
   height: auto;
   margin: 50px;
 }

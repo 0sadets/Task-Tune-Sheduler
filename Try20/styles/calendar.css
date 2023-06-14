@@ -117,7 +117,6 @@ footer{
   border-radius: 5px;
   background-color: #fff;
 }
-/* set after behind the main element */
 .calendar::before,
 .calendar::after {
   content: "";
@@ -350,12 +349,10 @@ footer{
   align-items: center;
   gap: 5px;
   padding: 5px;
-  /* padding-left: 50px; */
   color: #fff;
   background: linear-gradient(90deg, #329294, transparent);
   cursor: pointer;
 }
-/* even event */
 .events .event:nth-child(even) {
   background: linear-gradient(90deg, #329294, transparent);
 }

@@ -117,8 +117,6 @@ filters.forEach((btn) => {
 
 
 function showMenu(selectedTask) {
-  // console.log(selectedTask.parentElement);
-  // let menuDiv = selectedTask.parentElement.lastElementChild;
   selectedTask.classList.add("show");
   console.log(selectedTask);
   document.addEventListener("click", (e) => {
@@ -129,7 +127,6 @@ function showMenu(selectedTask) {
 }
 
 function openEdit(task) {
-  // $("#editModal").modal();
   document.getElementById("editModal").style.display = "block";
   document.getElementById("editModal").classList.add("show");
   document.getElementById("todo-title").value = task.title;
@@ -142,7 +139,6 @@ function openEdit(task) {
         method: "POST",
       }
     ).then((response) => {
-      // console.log(document.querySelector("span.active").id);
       if (response.status == 200) {
         document.getElementById("editModal").style.display = "none";
         document.getElementById("editModal").classList.remove("show");
